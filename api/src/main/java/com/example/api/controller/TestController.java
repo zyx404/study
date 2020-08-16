@@ -1,4 +1,4 @@
-package com.example.dal.controller;
+package com.example.api.controller;
 
 import com.example.dal.entity.TestDo;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,14 @@ public class TestController {
     @RequestMapping("test")
     public String test() {
         List<TestDo> test = testMapper.getTest();
-        log.info("shuai");
-        return "ok";
+        String res = "ok";
+        if (test.size() != 0)
+            res = test.get(0).getUserName() + "    " + test.get(0).getSex();
+        TestDo testDo=new TestDo();
+        testDo.setUserName("zhao");
+        testDo.setSex("nv");
+        testMapper.insert(testDo);
+        log.info(res);
+        return res;
     }
 }

@@ -4,10 +4,21 @@
 <mapper namespace="com.example.dal.mapper.TestMapper">
     <resultMap id="BaseResultMap" type="com.example.dal.entity.TestDo">
         <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
         <result column="sex" jdbcType="VARCHAR" property="sex"/>
     </resultMap>
+
     <select id="getTest" resultMap="BaseResultMap">
         select * from test
     </select>
+
+    <insert id="insert" parameterType="com.example.dal.entity.TestDo">
+        insert into test(user_name,sex)
+        values (
+        #{testDo.userName},
+        #{testDo.sex}
+        )
+    </insert>
+
+
 </mapper>
