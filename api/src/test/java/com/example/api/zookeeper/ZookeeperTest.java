@@ -9,7 +9,6 @@ import java.util.concurrent.CountDownLatch;
 
 @SpringBootTest
 public class ZookeeperTest {
-
     @Test
     public void zookeeperTest() throws KeeperException, InterruptedException, IOException {
         String connStr = "127.0.0.1:2181";
