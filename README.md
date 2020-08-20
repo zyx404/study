@@ -37,6 +37,13 @@ TBinaryProtocol- 二进制编码格式进行数据传输（默认）<br>
 TCompactProtocol- 高效率，密集的二进制编码格式进行数据传输（了解protocol buffer内部编码实现的话，就不足为奇了）<br>
 TJSONProtocol - 使用JSON的数据编码协议进行数据传输。<br>
 TSimpleJSONProtocol- 只提供JSON只写的协议，使用与通过脚本语言解析<br><br>
-
+## 创建文件，创建一个服务Hello,创建文件Hello.thrift：
+     namespace java service.demo
+        service Hello{
+           string helloString(1:string para)
+        }
+终端进入Hello.thrift所在目录,执行命令:<br>
+`thrift -r -gen java Hello.thrift`<br>
+并将Hello.java文件复制到对应的项目中
 # 修改spring启动标志
 [修改启动标志](https://blog.csdn.net/wang_lianjie/article/details/103630688)
