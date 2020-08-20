@@ -5,7 +5,7 @@
 
 # zookeeper
 ## maven 依赖：
-`        <dependency>
+        <dependency>
              <groupId>org.apache.zookeeper</groupId>
              <artifactId>zookeeper</artifactId>
              <version>3.6.1</version>
@@ -16,7 +16,8 @@
                      <artifactId>slf4j-log4j12</artifactId>
                  </exclusion>
              </exclusions>
-         </dependency>`
+         </dependency>
+         
 ## 问题
 ### 新版的zookeeper开启会占用8080端口<br>
 解决方法:<br>
@@ -36,3 +37,6 @@ TBinaryProtocol- 二进制编码格式进行数据传输（默认）<br>
 TCompactProtocol- 高效率，密集的二进制编码格式进行数据传输（了解protocol buffer内部编码实现的话，就不足为奇了）<br>
 TJSONProtocol - 使用JSON的数据编码协议进行数据传输。<br>
 TSimpleJSONProtocol- 只提供JSON只写的协议，使用与通过脚本语言解析<br><br>
+
+# 修改spring启动标志
+[修改启动标志](https://blog.csdn.net/wang_lianjie/article/details/103630688)
