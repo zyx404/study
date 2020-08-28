@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dal.mapper.UserInfoMapper">
+    <resultMap id="BaseResultMap" type="com.example.dal.entity.UserInfoDo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_name" jdbcType="VARCHAR" property="name"/>
+        <result column="user_sex" jdbcType="BIGINT" property="sex"/>
+        <result column="user_age" jdbcType="BIGINT" property="age"/>
+        <result column="user_job" jdbcType="VARCHAR" property="job"/>
+        <result column="user_phone" jdbcType="BIGINT" property="phone"/>
+        <result column="user_other" jdbcType="VARCHAR" property="other"/>
+    </resultMap>
+    <insert id="insertUser" parameterType="com.example.dal.entity.UserInfoDo">
+        insert into user_info(user_name,user_sex,user_age,user_job,user_phone,user_other)
+        values (
+        #{userInfo.name},
+        #{userInfo.sex},
+        #{userInfo.age},
+        #{userInfo.job},
+        #{userInfo.phone},
+        #{userInfo.other}
+        )
+    </insert>
+
+</mapper>
