@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 @SpringBootTest
 public class TimeTaskTest {
@@ -14,12 +15,12 @@ public class TimeTaskTest {
     DynamicTask dynamicTask;
 
     @Test
-    public void test(){
-        List<TaskConstant> taskConstants = dynamicTask.getTaskConstants();
-        TaskConstant taskConstant=new TaskConstant();
+    public void test() {
+        ConcurrentHashMap<String, TaskConstant> taskConstants = dynamicTask.getTaskConstants();
+        TaskConstant taskConstant = new TaskConstant();
         taskConstant.setCron("0/10 * * * * ?");
         taskConstant.setTaskId("test1");
-        taskConstants.add(taskConstant);
+        taskConstants.put("test1", taskConstant);
 
     }
 }

@@ -2,7 +2,6 @@ package com.example.api.runSchedule;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.assertj.core.util.Lists;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.CronTask;
@@ -26,9 +25,7 @@ public class DynamicTask implements SchedulingConfigurer {
     private volatile ScheduledTaskRegistrar registrar;
     private final ConcurrentHashMap<String, ScheduledFuture<?>> scheduledFutures = new ConcurrentHashMap<>();
     private final ConcurrentHashMap<String, CronTask> cronTasks = new ConcurrentHashMap<>();
-
-    private final List<TaskConstant> taskConstants = Lists.newArrayList();
-
+    private final ConcurrentHashMap<String, TaskConstant> taskConstants = new ConcurrentHashMap<>();
 
     @Override
     public void configureTasks(ScheduledTaskRegistrar registrar) {
@@ -37,13 +34,13 @@ public class DynamicTask implements SchedulingConfigurer {
                     if (!CollectionUtils.isEmpty(taskConstants)) {
                         log.info("检测动态定时任务列表...");
                         List<TimingTask> tts = new ArrayList<>();
-                        taskConstants
-                                .forEach(taskConstant -> {
+                        taskConstants.values().forEach(taskConstant -> {
                                     TimingTask tt = new TimingTask();
                                     tt.setExpression(taskConstant.getCron());
                                     tt.setTaskId("dynamic-task-" + taskConstant.getTaskId());
                                     tts.add(tt);
-                                });
+                                }
+                        );
                         this.refreshTasks(tts);
                     }
                 }
@@ -51,7 +48,7 @@ public class DynamicTask implements SchedulingConfigurer {
     }
 
 
-    public List<TaskConstant> getTaskConstants() {
+    public ConcurrentHashMap<String, TaskConstant> getTaskConstants() {
         return taskConstants;
     }
 
@@ -94,6 +91,7 @@ public class DynamicTask implements SchedulingConfigurer {
         }
         return false;
     }
+
     @PreDestroy
     public void destroy() {
         this.registrar.destroy();

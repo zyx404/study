@@ -19,17 +19,4 @@ public class TaskConstant {
         this.taskId = taskId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TaskConstant that = (TaskConstant) o;
-        return Objects.equals(cron, that.cron) &&
-                Objects.equals(taskId, that.taskId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cron, taskId);
-    }
 }
