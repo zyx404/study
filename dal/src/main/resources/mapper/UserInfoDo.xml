@@ -10,16 +10,18 @@
         <result column="user_job" jdbcType="VARCHAR" property="job"/>
         <result column="user_phone" jdbcType="BIGINT" property="phone"/>
         <result column="user_other" jdbcType="VARCHAR" property="other"/>
+        <result column="create_time" jdbcType="VARCHAR" property="date"/>
     </resultMap>
     <insert id="insertUser" parameterType="com.example.dal.entity.UserInfoDo">
-        insert into user_info(user_name,user_sex,user_age,user_job,user_phone,user_other)
+        insert into user_info(user_name,user_sex,user_age,user_job,user_phone,user_other,create_time)
         values (
         #{userInfo.name},
         #{userInfo.sex},
         #{userInfo.age},
         #{userInfo.job},
         #{userInfo.phone},
-        #{userInfo.other}
+        #{userInfo.other},
+        now()
         )
     </insert>
 

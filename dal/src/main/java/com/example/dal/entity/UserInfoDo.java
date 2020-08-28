@@ -2,6 +2,8 @@ package com.example.dal.entity;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class UserInfoDo {
 
@@ -18,4 +20,6 @@ public class UserInfoDo {
     Integer phone;
 
     String other;
+
+    Date date;
 }
