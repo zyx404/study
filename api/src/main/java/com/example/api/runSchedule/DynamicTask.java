@@ -44,6 +44,7 @@ public class DynamicTask implements SchedulingConfigurer {
                         this.refreshTasks(tts);
                     }
                 }
+                //每5秒检测任务列表一次，并更新任务
                 , triggerContext -> new PeriodicTrigger(5L, TimeUnit.SECONDS).nextExecutionTime(triggerContext));
     }
 

@@ -1,5 +1,6 @@
 package com.example.api.controller;
 
+import com.example.api.thread.FutureDemo;
 import com.example.dal.entity.TestDo;
 import lombok.extern.slf4j.Slf4j;
 import com.example.dal.mapper.TestMapper;
@@ -28,5 +29,10 @@ public class TestController {
         testMapper.insert(testDo);
         log.info(res);
         return res;
+    }
+    @RequestMapping("thread")
+    public void thread() throws InterruptedException {
+        FutureDemo futureDemo=new FutureDemo();
+        futureDemo.thread();
     }
 }
