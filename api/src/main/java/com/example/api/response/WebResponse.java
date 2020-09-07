@@ -6,18 +6,18 @@ import lombok.Data;
 @Data
 public class WebResponse<T> {
     private Integer code;
-    private String message;
+    private String msg;
     private T data;
 
     public WebResponse(Integer code, String message, T data) {
         this.code = code;
-        this.message = message;
+        this.msg = message;
         this.data = data;
     }
 
     public WebResponse(ResultEnum resultEnum, T data) {
         this.code = resultEnum.getCode();
-        this.message = resultEnum.getMessage();
+        this.msg = resultEnum.getMessage();
         this.data = data;
     }
 }

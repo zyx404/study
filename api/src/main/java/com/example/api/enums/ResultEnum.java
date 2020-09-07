@@ -1,13 +1,14 @@
 package com.example.api.enums;
 
 public enum ResultEnum {
-    SUCCESS(222, "成功");
+    SUCCESS(200, "成功"),
+    FAIL(-1,"失败");
     private Integer code;
-    private String message;
+    private String msg;
 
-    ResultEnum(Integer code, String message) {
+    ResultEnum(Integer code, String msg) {
         this.code = code;
-        this.message = message;
+        this.msg = msg;
     }
 
     public Integer getCode() {
@@ -19,10 +20,10 @@ public enum ResultEnum {
     }
 
     public String getMessage() {
-        return message;
+        return msg;
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        this.msg = message;
     }
 }

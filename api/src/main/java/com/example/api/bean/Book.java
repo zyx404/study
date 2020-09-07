@@ -1,6 +1,6 @@
 package com.example.api.bean;
 
-import org.jetbrains.annotations.NotNull;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,11 +20,11 @@ public class Book implements BeanNameAware, BeanFactoryAware,
         System.out.println("Book Initializing ");
     }
 
-    public void setBeanFactory(@NotNull BeanFactory beanFactory) throws BeansException {
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
         System.out.println("Book.setBeanFactory invoke");
     }
 
-    public void setBeanName(@NotNull String name) {
+    public void setBeanName(String name) {
         System.out.println("Book.setBeanName invoke");
     }
 
@@ -36,7 +36,7 @@ public class Book implements BeanNameAware, BeanFactoryAware,
         System.out.println("Book.afterPropertiesSet invoke");
     }
 
-    public void setApplicationContext(@NotNull ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         System.out.println("Book.setApplicationContext invoke");
     }
 

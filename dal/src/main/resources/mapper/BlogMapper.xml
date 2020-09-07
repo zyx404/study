@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dal.mapper.BlogMapper">
+    <resultMap id="BaseResultMap" type="com.example.dal.entity.Blog">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="title" jdbcType="BIGINT" property="title"/>
+        <result column="description" jdbcType="BIGINT" property="description"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="created" jdbcType="BIGINT" property="created"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.example.dal.entity.Blog">
+        insert into m_blog(user_id,title,description,content,created,status)
+        values (
+        #{blog.userId},
+        #{blog.title},
+        #{blog.description},
+        #{blog.content},
+        now(),
+        #{blog.status}
+        )
+    </insert>
+</mapper>

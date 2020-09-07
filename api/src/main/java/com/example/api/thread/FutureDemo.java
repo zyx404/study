@@ -6,9 +6,10 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
 
+
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.apache.thrift.annotation.Nullable;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,7 +62,6 @@ public class FutureDemo {
         System.out.println("asa");
     }
 
-    @NotNull
     private List<String> getStrings(String s) throws InterruptedException {
         List<String> sb = new ArrayList<>();
         for (int i = 0; i < 10; i++) {

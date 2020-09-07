@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dal.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.example.dal.entity.User">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="userName"/>
+        <result column="avatar" jdbcType="BIGINT" property="avatar"/>
+        <result column="email" jdbcType="BIGINT" property="email"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="status" jdbcType="BIGINT" property="status"/>
+        <result column="created" jdbcType="VARCHAR" property="created"/>
+        <result column="last_login" jdbcType="VARCHAR" property="lastLogin"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.example.dal.entity.User">
+        insert into m_user(username,avatar,email,password,status,created)
+        values (
+        #{user.userName},
+        #{user.avatar},
+        #{user.email},
+        #{user.password},
+        #{user.status},
+        now()
+        )
+    </insert>
+    <select id="getUser" resultType="com.example.dal.entity.User">
+        select * from m_user where id=#{id}
+    </select>
+    <select id="getUserByName" resultType="com.example.dal.entity.User">
+        select * from m_user where username=#{name}
+    </select>
+</mapper>

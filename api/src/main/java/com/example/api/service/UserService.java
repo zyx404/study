@@ -1,7 +1,9 @@
 package com.example.api.service;
 
-import com.example.dal.entity.UserInfoDo;
+import com.example.dal.entity.User;
 
 public interface UserService {
-    void insertUser(UserInfoDo userInfoDo);
+
+    User getUser(Long id);
+    User getUserByName(String name);
 }
