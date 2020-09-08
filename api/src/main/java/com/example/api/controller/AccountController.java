@@ -6,7 +6,9 @@ import com.example.api.response.WebResponse;
 import com.example.api.service.UserService;
 import com.example.api.tools.ImageUtil;
 import com.example.dal.entity.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -43,8 +46,9 @@ public class AccountController {
     @PostMapping("/add")
     public WebResponse<Object> add(MultipartFile image) throws IOException {
         // TODO: 2020/9/4 图片名校验
+//        File imageFolder= new File(request.getServletContext().getRealPath("static/heng"));
         String x = image.getOriginalFilename();
-        File imageFolder = new File("/Users/zuoyuanxun/Java/image");
+        File imageFolder = new File("/Users/zuoyuanxun/Java/IdeaProjects/study/api/src/main/resources/static/img");
         File file = new File(imageFolder, x);
         if (!file.getParentFile().exists())
             file.getParentFile().mkdirs();
@@ -52,5 +56,10 @@ public class AccountController {
         BufferedImage img = ImageUtil.change2jpg(file);
         ImageIO.write(img, "jpg", file);
         return new WebResponse<>(ResultEnum.SUCCESS, null);
+    }
+
+    @GetMapping("/getImage")
+    public WebResponse<Object> get(@Param("ImageId") String id) {
+        return null;
     }
 }
