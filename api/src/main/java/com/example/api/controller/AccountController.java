@@ -37,29 +37,4 @@ public class AccountController {
         }
         return new WebResponse<>(ResultEnum.SUCCESS, user);
     }
-
-    /**
-     * 添加图片 存库
-     *
-     * @param image
-     */
-    @PostMapping("/add")
-    public WebResponse<Object> add(MultipartFile image) throws IOException {
-        // TODO: 2020/9/4 图片名校验
-//        File imageFolder= new File(request.getServletContext().getRealPath("static/heng"));
-        String x = image.getOriginalFilename();
-        File imageFolder = new File("/Users/zuoyuanxun/Java/IdeaProjects/study/api/src/main/resources/static/img");
-        File file = new File(imageFolder, x);
-        if (!file.getParentFile().exists())
-            file.getParentFile().mkdirs();
-        image.transferTo(file);
-        BufferedImage img = ImageUtil.change2jpg(file);
-        ImageIO.write(img, "jpg", file);
-        return new WebResponse<>(ResultEnum.SUCCESS, null);
-    }
-
-    @GetMapping("/getImage")
-    public WebResponse<Object> get(@Param("ImageId") String id) {
-        return null;
-    }
 }

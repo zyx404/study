@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dal.mapper.ImageMapper">
+    <resultMap id="BaseResultMap" type="com.example.dal.entity.ImageDo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="image_name" jdbcType="BIGINT" property="imageName"/>
+        <result column="lr_image" jdbcType="BIGINT" property="lrImage"/>
+        <result column="hr_image" jdbcType="BIGINT" property="hrImage"/>
+        <result column="created" jdbcType="BIGINT" property="created"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+    </resultMap>
+    <insert id="insertImage" parameterType="com.example.dal.entity.ImageDo">
+        insert into m_image(user_id, image_name,lr_image, hr_image, created, status)
+        values (
+        #{imageDo.userId},
+        #{imageDo.imageName},
+        #{imageDo.lrImage},
+        #{imageDo.hrImage},
+        now(),
+        #{imageDo.status}
+        )
+    </insert>
+    <select id="getLrImage" resultType="java.lang.String">
+        select lr_image from m_image where image_name = #{imageName}
+    </select>
+</mapper>
