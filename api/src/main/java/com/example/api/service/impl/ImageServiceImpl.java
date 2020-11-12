@@ -22,8 +22,44 @@ public class ImageServiceImpl implements ImageService {
         String fileName = file.getOriginalFilename();
         imageMapper.insertImage(buildImageDo(fileName, userId));
         FtpUtil.uploadFile(FtpParam.host, FtpParam.port, FtpParam.username, FtpParam.passwd, FtpParam.basePath, FtpParam.filePath, fileName, file.getInputStream());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return fileName;
+    }
 
-        return imageMapper.getLrImage(fileName);
+    @Override
+    public String imageFtp(MultipartFile file, Integer userId) throws IOException {
+        String fileName = file.getOriginalFilename();
+        System.out.println(fileName);
+        FtpUtil.uploadFile(FtpParam.host, FtpParam.port, FtpParam.username, FtpParam.passwd, FtpParam.basePath, FtpParam.filePath+"avatar", fileName, file.getInputStream());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return fileName;
+    }
+
+    @Override
+    public String imageFtpRegister(MultipartFile file) throws IOException {
+        String fileName = file.getOriginalFilename();
+        System.out.println(fileName);
+        FtpUtil.uploadFile(FtpParam.host, FtpParam.port, FtpParam.username, FtpParam.passwd, FtpParam.basePath, FtpParam.filePath + "avatar", fileName, file.getInputStream());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return fileName;
+    }
+
+    @Override
+    public String imageHRToSQL(String fileName, Integer userId) {
+        imageMapper.insertImage(buildImageDo(fileName, userId));
+        return "SUCCESS";
     }
 
 

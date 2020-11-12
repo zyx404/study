@@ -28,5 +28,5 @@ public class FtpParam {
     /**
      * ftp服务器根据指定条件存储
      */
-    public static String filePath = "/image";
+    public static String filePath = "/image/";
 }

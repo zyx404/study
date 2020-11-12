@@ -1,20 +1,19 @@
 package com.example.dal.entity;
 
-
-import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.Date;
-@Data
-public class User {
+@Setter
+@Getter
+public class UserInfo {
     Integer id;
     String userName;
     String avatar;
     String gender;
     String email;
-    String password;
+    String secret;
+    String newSecretOne;
+    String newSecretTwo;
     String description;
-    Integer status;
-    Date created;
-    Date lastLogin;
 }

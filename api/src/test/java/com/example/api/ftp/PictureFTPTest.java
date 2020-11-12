@@ -23,7 +23,7 @@ public class PictureFTPTest {
         String passwd = "zyx199503";
         String basePath = "/home/uftp/img";
         String filePath = "/image";
-        String fileName = "/Users/zuoyuanxun/Java/IdeaProjects/study/api/src/main/resources/static/652.jpg";
+        String fileName = "/Users/zuoyuanxun/Java/front/vueblog-vue/src/assets/plus.png";
 
         //1、创建一个FtpClient对象
         FTPClient ftpClient = new FTPClient();
@@ -34,7 +34,7 @@ public class PictureFTPTest {
         int replyCode = ftpClient.getReplyCode(); //replyCode表示的是返回的状态码。
         boolean res = FTPReply.isPositiveCompletion(replyCode);//判断状态码的状态，如果为true，表示连接成功。
         //4.读取本地文件
-        FileInputStream fileInputStream = new FileInputStream(new File("/Users/zuoyuanxun/Java/IdeaProjects/study/api/src/main/resources/static/652.jpg"));
+        FileInputStream fileInputStream = new FileInputStream(new File("/Users/zuoyuanxun/Java/front/vueblog-vue/src/assets/plus.png"));
         //5.设置上传的路径
         ftpClient.changeWorkingDirectory("/home/uftp/img");
 
@@ -55,8 +55,8 @@ public class PictureFTPTest {
         String passwd = "zyx199503";
         String basePath = "/home/uftp/img";
         String filePath = "/image";
-        String fileName = "653.jpg";
-        FileInputStream fileInputStream = new FileInputStream(new File("/Users/zuoyuanxun/Java/IdeaProjects/study/api/src/main/resources/static/653.jpg"));
+        String fileName = "timg.png";
+        FileInputStream fileInputStream = new FileInputStream(new File("/Users/zuoyuanxun/Java/front/vueblog-vue/src/assets/timg.png"));
         FtpUtil.uploadFile(host, port, username, passwd, basePath, filePath, fileName, fileInputStream);
 
     }

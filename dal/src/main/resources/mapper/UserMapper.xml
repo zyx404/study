@@ -6,21 +6,26 @@
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="username" jdbcType="VARCHAR" property="userName"/>
         <result column="avatar" jdbcType="BIGINT" property="avatar"/>
+        <result column="gender" jdbcType="BIGINT" property="gender"/>
         <result column="email" jdbcType="BIGINT" property="email"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="status" jdbcType="BIGINT" property="status"/>
         <result column="created" jdbcType="VARCHAR" property="created"/>
         <result column="last_login" jdbcType="VARCHAR" property="lastLogin"/>
     </resultMap>
 
     <insert id="insert" parameterType="com.example.dal.entity.User">
-        insert into m_user(username,avatar,email,password,status,created)
+        insert into m_user(username,avatar,gender,email,password,description,status,created,last_login)
         values (
         #{user.userName},
         #{user.avatar},
+        #{user.gender},
         #{user.email},
-        #{user.password},
-        #{user.status},
+        #{user.newSecretOne},
+        #{user.description},
+        1,
+        now(),
         now()
         )
     </insert>
@@ -30,4 +35,27 @@
     <select id="getUserByName" resultType="com.example.dal.entity.User">
         select * from m_user where username=#{name}
     </select>
+    <update id="userEdit" parameterType="com.example.dal.entity.UserInfo">
+        update m_user
+        set
+        username=#{userInfo.userName},
+        avatar=#{userInfo.avatar},
+        gender=#{userInfo.gender},
+        email=#{userInfo.email},
+        password=#{userInfo.newSecretOne},
+        description=#{userInfo.description},
+        last_login=now()
+        where id=#{userInfo.id}
+    </update>
+    <update id="userEditNoSecret" parameterType="com.example.dal.entity.UserInfo">
+        update m_user
+        set
+        username=#{userInfo.userName},
+        avatar=#{userInfo.avatar},
+        gender=#{userInfo.gender},
+        email=#{userInfo.email},
+        description=#{userInfo.description},
+        last_login=now()
+        where id=#{userInfo.id}
+    </update>
 </mapper>

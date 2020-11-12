@@ -1,18 +1,20 @@
 package com.example.dal.entity;
 
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.NonNull;
 
 import java.util.Date;
+
 @Data
-public class User {
+public class User1 {
     Integer id;
     String userName;
     String avatar;
     String gender;
     String email;
-    String password;
+    String newSecretOne;
+    String newSecretTwo;
     String description;
     Integer status;
     Date created;
