@@ -30,7 +30,7 @@ public class FtpUtil {
             int reply;
             ftp.connect(host, port);// 连接FTP服务器
             // 如果采用默认端口，可以使用ftp.connect(host)的方式直接连接FTP服务器
-            ftp.login(username, password);// 登录
+            boolean res = ftp.login(username, password);// 登录
             reply = ftp.getReplyCode();
             if (!FTPReply.isPositiveCompletion(reply)) {
                 ftp.disconnect();

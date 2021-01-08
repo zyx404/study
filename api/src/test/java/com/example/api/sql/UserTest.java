@@ -33,14 +33,14 @@ public class UserTest {
 
     @Test
     public void getUser() {
-        User user = userMapper.getUser(1L);
+        User user = userMapper.getUser(3L);
         System.out.println();
     }
 
     @Test
     public void updateUserInfoTest(){
         UserInfo userInfo=new UserInfo();
-        userInfo.setId(4);
+        userInfo.setId(3);
         userInfo.setUserName("yuan");
         userInfo.setAvatar("2");
         userInfo.setGender("女");
