@@ -50,13 +50,13 @@ public class PictureFTPTest {
     @Test
     public void testFTPClient1() throws IOException {
 //        String host = "10.103.238.99";
-        String host = "10.103.239.70";
+        String host = "139.155.35.77";
         int port = 21;
         String username = "uftp";
         String passwd = "zyx199503";
         String basePath = "/home/uftp/img";
         String filePath = "/image";
-        String fileName = "shuai1.png";
+        String fileName = "shuai2.png";
         FileInputStream fileInputStream = new FileInputStream(new File("/Users/zuoyuanxun/Java/front/vueblog-vue/src/assets/timg.png"));
         FtpUtil.uploadFile(host, port, username, passwd, basePath, filePath, fileName, fileInputStream);
 

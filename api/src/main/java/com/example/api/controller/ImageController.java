@@ -21,7 +21,7 @@ public class ImageController {
     private static Integer UID = 0;
 
     /**
-     * 添加图片 存库
+     * 添加低分辨率图片 存库
      *
      * @param image
      */
@@ -37,10 +37,16 @@ public class ImageController {
         return null;
     }
 
+    /**
+     * 生成高分辨率图片存库
+     * @param URL
+     * @param userName
+     * @return
+     */
     @GetMapping("/getHRImage")
-    public WebResponse<String> getHr(@RequestParam("url") String URL) {
+    public WebResponse<String> getHr(@RequestParam("url") String URL,@RequestParam("userName") String userName) {
         System.out.println(URL);
-        String s = HttpClientDemo.get(URL);
+        String s = HttpClientDemo.get(URL,userName);
         System.out.println("高：" + s);
         imageService.imageHRToSQL(s, UID);
         return new WebResponse<>(ResultEnum.SUCCESS, s);

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ImageMapper {
     void insertImage(@Param("imageDo") ImageDo imageDo);
-
+    String getImage(@Param("imageName") String imageName,@Param("userId") Integer userId);
     String getLrImage(@Param("imageName") String name);
+    void updateImage(@Param("imageName") String imageName,@Param("userId") Integer userId,@Param("imageHrImage") String imageHrImage);
 }

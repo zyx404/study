@@ -11,5 +11,5 @@ public interface ImageService {
 
     String imageFtpRegister(MultipartFile file) throws IOException;
 
-    String imageHRToSQL(String fileName, Integer userId);
+    void imageHRToSQL(String fileName, Integer userId);
 }

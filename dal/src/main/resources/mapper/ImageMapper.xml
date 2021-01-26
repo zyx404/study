@@ -22,7 +22,19 @@
         #{imageDo.status}
         )
     </insert>
+
+    <update id="updateImage">
+        update m_image
+        set
+        hr_image=#{imageHrImage}
+        where image_name=#{imageName} and user_id=#{userId}
+    </update>
+
     <select id="getLrImage" resultType="java.lang.String">
         select lr_image from m_image where image_name = #{imageName}
+    </select>
+
+    <select id="getImage" resultType="java.lang.String">
+        select image_name from m_image where image_name=#{imageName} and user_id=#{userId}
     </select>
 </mapper>
