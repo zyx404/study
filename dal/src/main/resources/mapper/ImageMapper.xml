@@ -37,4 +37,8 @@
     <select id="getImage" resultType="java.lang.String">
         select image_name from m_image where image_name=#{imageName} and user_id=#{userId}
     </select>
+
+    <select id="getHistory" resultType="com.example.dal.entity.HistoryDo">
+        select * from m_image where user_id=#{uid} and hr_image != "no have";
+    </select>
 </mapper>

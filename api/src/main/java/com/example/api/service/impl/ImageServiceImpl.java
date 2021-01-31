@@ -3,6 +3,7 @@ package com.example.api.service.impl;
 import com.example.api.constants.FtpParam;
 import com.example.api.service.ImageService;
 import com.example.api.tools.FtpUtil;
+import com.example.dal.entity.HistoryDo;
 import com.example.dal.entity.ImageDo;
 import com.example.dal.entity.User;
 import com.example.dal.mapper.ImageMapper;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class ImageServiceImpl implements ImageService {
@@ -83,6 +85,11 @@ public class ImageServiceImpl implements ImageService {
         }
     }
 
+    @Override
+    public List<HistoryDo> getHistory(Integer uid) {
+        return imageMapper.getHistory(uid);
+    }
+
 
     private ImageDo buildImageDo(String fileName, Integer userId, String ImageName) {
         // http://10.103.238.99:82/img/image/653.jpg
@@ -91,7 +98,7 @@ public class ImageServiceImpl implements ImageService {
         imageDo.setImageName(fileName);
         imageDo.setUserId(userId);
         imageDo.setLrImage(url);
-        imageDo.setHrImage(url);
+        imageDo.setHrImage("no have");
         imageDo.setStatus(1);
         return imageDo;
     }

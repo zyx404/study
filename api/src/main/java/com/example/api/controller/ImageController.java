@@ -1,9 +1,12 @@
 package com.example.api.controller;
 
+import com.example.api.bean.History;
 import com.example.api.enums.ResultEnum;
 import com.example.api.response.WebResponse;
 import com.example.api.service.ImageService;
 import com.example.api.tensor.http.HttpClientDemo;
+import com.example.dal.entity.HistoryDo;
+import com.example.dal.entity.ImageDo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class ImageController {
@@ -39,14 +44,15 @@ public class ImageController {
 
     /**
      * 生成高分辨率图片存库
+     *
      * @param URL
      * @param userName
      * @return
      */
     @GetMapping("/getHRImage")
-    public WebResponse<String> getHr(@RequestParam("url") String URL,@RequestParam("userName") String userName) {
+    public WebResponse<String> getHr(@RequestParam("url") String URL, @RequestParam("userName") String userName) {
         System.out.println(URL);
-        String s = HttpClientDemo.get(URL,userName);
+        String s = HttpClientDemo.get(URL, userName);
         System.out.println("高：" + s);
         imageService.imageHRToSQL(s, UID);
         return new WebResponse<>(ResultEnum.SUCCESS, s);
@@ -65,5 +71,12 @@ public class ImageController {
     public WebResponse<String> addImageRegister(MultipartFile image) throws IOException {
         String res = imageService.imageFtpRegister(image);
         return new WebResponse<>(ResultEnum.SUCCESS, res);
+    }
+
+    @GetMapping("/getHistory")
+    public WebResponse<List<HistoryDo>> getHistory(@RequestParam("uid") Integer uid) {
+        System.out.println();
+        List<HistoryDo> l = imageService.getHistory(uid);
+        return new WebResponse<>(ResultEnum.SUCCESS, l);
     }
 }
