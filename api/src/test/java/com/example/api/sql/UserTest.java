@@ -20,11 +20,12 @@ public class UserTest {
     @Test
     public void userInsertTest() {
         User1 user = new User1();
-        user.setUserName("yuan");
+        user.setUserName("yuan1");
         user.setAvatar("2");
         user.setGender("男");
         user.setEmail("15754301578@163.com");
         user.setNewSecretOne("qwaas");
+        user.setIsCollect(true);
         user.setDescription("你猜我猜不猜你猜不猜");
         user.setStatus(1);
         userMapper.insert(user);
@@ -33,7 +34,7 @@ public class UserTest {
 
     @Test
     public void getUser() {
-        User user = userMapper.getUser(3L);
+        User1 user = userMapper.getUser1(9L);
         System.out.println();
     }
 

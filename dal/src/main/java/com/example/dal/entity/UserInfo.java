@@ -13,6 +13,7 @@ public class UserInfo {
     String gender;
     String email;
     String secret;
+    Boolean isCollect;
     String newSecretOne;
     String newSecretTwo;
     String description;

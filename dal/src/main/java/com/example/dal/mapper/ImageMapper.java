@@ -13,9 +13,17 @@ public interface ImageMapper {
 
     String getImage(@Param("imageName") String imageName, @Param("userId") Integer userId);
 
+    String getLrImage1(@Param("imageName") String imageName, @Param("userId") Integer userId);
+
     String getLrImage(@Param("imageName") String name);
+
+    String getLrImageByUid(@Param("imageName") String name, @Param("userId") Integer userId);
+
+    String getHrImage(@Param("imageName") String name, @Param("userId") Integer userId);
 
     void updateImage(@Param("imageName") String imageName, @Param("userId") Integer userId, @Param("imageHrImage") String imageHrImage);
 
     List<HistoryDo> getHistory(@Param("uid") Integer uid);
+
+    List<String> getImageName(@Param("uid") Integer uid);
 }

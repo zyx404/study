@@ -39,9 +39,9 @@ public class wxController {
         System.out.println("微信小程序正在调用。。。");
         Map<String, Object> map = new HashMap<String, Object>();
         List<String> list = new ArrayList<String>();
-        list.add("赵丽媛");
-        list.add("小宝贝");
-        list.add("哈哈哈哈");
+        list.add("0");
+        list.add("1");
+        list.add("哈哈哈");
         list.add("嘻嘻嘻");
         map.put("list", list);
         System.out.println("微信小程序调用完成。。。");

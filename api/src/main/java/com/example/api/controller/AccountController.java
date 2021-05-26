@@ -7,6 +7,7 @@ import com.example.api.service.UserService;
 import com.example.api.tools.ImageUtil;
 import com.example.dal.entity.User;
 import com.example.dal.entity.User1;
+import com.example.dal.entity.User2;
 import com.example.dal.entity.UserInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.validation.annotation.Validated;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 public class AccountController {
@@ -37,7 +39,7 @@ public class AccountController {
         User user = userService.getUserByName(loginDto.getUsername());
 //        Assert.notNull(user, "用户不存在");
         if (user == null || !user.getUserName().equals(loginDto.getUsername()) || !user.getPassword().equals(loginDto.getPassword())) {
-            return new WebResponse<>(ResultEnum.FAIL, null);
+            return new WebResponse<>(ResultEnum.FAIL0, null);
         }
         return new WebResponse<>(ResultEnum.SUCCESS, user);
     }
@@ -49,21 +51,30 @@ public class AccountController {
             return new WebResponse<>(ResultEnum.PARA_IS_NULL, null);
         if (!user.getNewSecretOne().equals(user.getNewSecretTwo()))
             return new WebResponse<>(ResultEnum.SECRET_IS_DIFF, null);
+        List<String> userName = userService.getUser();
+        if (userName.contains(user.getUserName()))
+            return new WebResponse<>(ResultEnum.FAIL1, null);
         userService.userRegister(user);
         return new WebResponse<>(ResultEnum.SUCCESS, user);
     }
 
     @PostMapping("/userEdit")
     public WebResponse<Object> userEdit(@Validated @RequestBody UserInfo userInfo) {
-        User user = userService.getUserByName(userInfo.getUserName());
-        if (userInfo.getSecret() == null || userInfo.getSecret().equals("")) {
-            userService.userEditNoSecret(userInfo);
-            return new WebResponse<>(ResultEnum.SUCCESS, null);
-        }
+        User user = userService.getUserById(userInfo.getId());
         if (!user.getPassword().equals(userInfo.getSecret()))
             return new WebResponse<>(ResultEnum.PASSWD_NULL_OR_DIFF, null);
         if (!userInfo.getNewSecretOne().equals(userInfo.getNewSecretTwo()))
             return new WebResponse<>(ResultEnum.SECRET_IS_DIFF, null);
+        if (userInfo.getSecret() == null || userInfo.getSecret().equals("")) {
+            userService.userEditNoSecret(userInfo);
+            return new WebResponse<>(ResultEnum.SUCCESS, null);
+        }
+        //用户名不一致，则修改用户名
+        if (!userInfo.getUserName().equals(user.getUserName())){
+            List<String> userName = userService.getUser();
+            if (userName.contains(userInfo.getUserName()))
+                return new WebResponse<>(ResultEnum.FAIL1, null);
+        }
         if (userInfo.getNewSecretOne() == null || userInfo.getNewSecretOne().equals("")) {
             userService.userEditNoSecret(userInfo);
             return new WebResponse<>(ResultEnum.SUCCESS, null);

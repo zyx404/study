@@ -2,13 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dal.mapper.UserMapper">
-    <resultMap id="BaseResultMap" type="com.example.dal.entity.User">
+    <resultMap id="BaseResultMap" type="com.example.dal.entity.User1">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="username" jdbcType="VARCHAR" property="userName"/>
         <result column="avatar" jdbcType="BIGINT" property="avatar"/>
         <result column="gender" jdbcType="BIGINT" property="gender"/>
         <result column="email" jdbcType="BIGINT" property="email"/>
-        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="password" jdbcType="VARCHAR" property="newSecretOne"/>
+        <result column="password" jdbcType="BIGINT" property="isCollect"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="status" jdbcType="BIGINT" property="status"/>
         <result column="created" jdbcType="VARCHAR" property="created"/>
@@ -16,13 +17,14 @@
     </resultMap>
 
     <insert id="insert" parameterType="com.example.dal.entity.User">
-        insert into m_user(username,avatar,gender,email,password,description,status,created,last_login)
+        insert into m_user(username,avatar,gender,email,password,isCollect,description,status,created,last_login)
         values (
         #{user.userName},
         #{user.avatar},
         #{user.gender},
         #{user.email},
         #{user.newSecretOne},
+        #{user.isCollect},
         #{user.description},
         1,
         now(),
@@ -32,8 +34,17 @@
     <select id="getUser" resultType="com.example.dal.entity.User">
         select * from m_user where id=#{id}
     </select>
+    <select id="getUser1" resultType="com.example.dal.entity.User1">
+        select * from m_user where id=#{id}
+    </select>
     <select id="getUserByName" resultType="com.example.dal.entity.User">
         select * from m_user where username=#{name}
+    </select>
+    <select id="getUserById" resultType="com.example.dal.entity.User">
+        select * from m_user where id=#{id}
+    </select>
+    <select id="getUsers" resultType="java.lang.String">
+        select username from m_user
     </select>
     <update id="userEdit" parameterType="com.example.dal.entity.UserInfo">
         update m_user
@@ -42,6 +53,7 @@
         avatar=#{userInfo.avatar},
         gender=#{userInfo.gender},
         email=#{userInfo.email},
+        isCollect=#{userInfo.isCollect},
         password=#{userInfo.newSecretOne},
         description=#{userInfo.description},
         last_login=now()
@@ -54,6 +66,7 @@
         avatar=#{userInfo.avatar},
         gender=#{userInfo.gender},
         email=#{userInfo.email},
+        isCollect=#{userInfo.isCollect},
         description=#{userInfo.description},
         last_login=now()
         where id=#{userInfo.id}

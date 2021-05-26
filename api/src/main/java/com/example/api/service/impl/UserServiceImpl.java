@@ -8,6 +8,7 @@ import com.example.dal.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -25,6 +26,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserById(Integer id) {
+        return userMapper.getUserById(id);
+    }
+
+    @Override
     public void userEdit(UserInfo userInfo) {
         userMapper.userEdit(userInfo);
     }
@@ -37,5 +43,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void userRegister(User1 user) {
         userMapper.insert(user);
+    }
+
+    @Override
+    public List<String> getUser() {
+        return userMapper.getUsers();
     }
 }

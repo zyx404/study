@@ -33,12 +33,27 @@
     <select id="getLrImage" resultType="java.lang.String">
         select lr_image from m_image where image_name = #{imageName}
     </select>
+    <select id="getLrImageByUid" resultType="java.lang.String">
+        select lr_image from m_image where image_name = #{imageName} and user_id=#{userId}
+    </select>
+
+    <select id="getHrImage" resultType="java.lang.String">
+        select hr_image from m_image where image_name = #{imageName} and user_id=#{userId}
+    </select>
 
     <select id="getImage" resultType="java.lang.String">
         select image_name from m_image where image_name=#{imageName} and user_id=#{userId}
     </select>
 
+    <select id="getLrImage1" resultType="java.lang.String">
+        select image_name from m_image where lr_image=#{imageName} and user_id=#{userId}
+    </select>
+
     <select id="getHistory" resultType="com.example.dal.entity.HistoryDo">
         select * from m_image where user_id=#{uid} and hr_image != "no have";
+    </select>
+
+    <select id="getImageName" resultType="java.lang.String">
+        select image_name from m_image where user_id=#{uid};
     </select>
 </mapper>

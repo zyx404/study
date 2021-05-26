@@ -3,6 +3,7 @@ package com.example.api.service.impl;
 import com.example.api.constants.FtpParam;
 import com.example.api.service.ImageService;
 import com.example.api.tools.FtpUtil;
+import com.example.api.tools.NameUtil;
 import com.example.dal.entity.HistoryDo;
 import com.example.dal.entity.ImageDo;
 import com.example.dal.entity.User;
@@ -29,7 +30,7 @@ public class ImageServiceImpl implements ImageService {
         //根据userId 获取用户名
         User user = userMapper.getUser((long) userId);
         //根据不同的用户定义不同的文件夹
-        String ImageName = user.getUserName() + "/";
+        String ImageName = NameUtil.ToPinyin(user.getUserName()) + "/";
 
         imageMapper.insertImage(buildImageDo(fileName, userId, ImageName));
         FtpUtil.uploadFile(FtpParam.host, FtpParam.port, FtpParam.username, FtpParam.passwd, FtpParam.basePath, ImageName, fileName, file.getInputStream());
@@ -38,7 +39,17 @@ public class ImageServiceImpl implements ImageService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return fileName;
+        return "http://139.155.35.77/img/image/" + NameUtil.ToPinyin(user.getUserName()) + "/" + fileName;
+    }
+
+    @Override
+    public List<String> imageName(Integer uid) {
+        return imageMapper.getImageName(uid);
+    }
+
+    @Override
+    public String lrImage(String fileName, Integer uid) {
+        return imageMapper.getLrImageByUid(fileName, uid);
     }
 
     @Override
@@ -68,7 +79,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public void imageHRToSQL(String fileName, Integer userId) {
+    public String imageHRToSQL(String fileName, Integer userId) {
         String name = fileName.split("-")[0];
         String tabel = fileName.split("\\.")[1];
         String lrName = fileName.split("-")[0] + '.' + tabel;
@@ -77,12 +88,27 @@ public class ImageServiceImpl implements ImageService {
         //根据userId 获取用户名
         User user = userMapper.getUser((long) userId);
         //根据不同的用户定义不同的文件夹
-        String ImageName = user.getUserName() + "/";
-
+        String ImageName = NameUtil.ToPinyin(user.getUserName()) + "/";
+        String url = null;
         if (lrNameIp != null) {
-            String url = "http://" + FtpParam.host + ":" + FtpParam.nginx_port + "/img" + FtpParam.filePath + ImageName + fileName;
+            url = "http://" + FtpParam.host + ":" + FtpParam.nginx_port + "/img" + FtpParam.filePath + ImageName + fileName;
             imageMapper.updateImage(lrNameIp, userId, url);
         }
+        return url;
+    }
+
+    @Override
+    public String hrImage(String imageName, String userName) {
+        Integer userId = userMapper.getUserByName(userName).getId();
+        String lrNameIp = imageMapper.getLrImage1(imageName, userId);
+        if (lrNameIp != null) {
+            String hrImage = imageMapper.getHrImage(lrNameIp, userId);
+            if (!hrImage.equals("no have")) {
+                return hrImage;
+            }
+        }
+
+        return null;
     }
 
     @Override

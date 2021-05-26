@@ -4,10 +4,13 @@ import com.example.api.bean.History;
 import com.example.api.enums.ResultEnum;
 import com.example.api.response.WebResponse;
 import com.example.api.service.ImageService;
+import com.example.api.service.impl.ImageServiceImpl;
 import com.example.api.tensor.http.HttpClientDemo;
+import com.example.api.tools.NameUtil;
 import com.example.dal.entity.HistoryDo;
 import com.example.dal.entity.HistoryDo1;
 import com.example.dal.entity.ImageDo;
+import com.example.dal.mapper.UserMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +28,8 @@ import java.util.List;
 public class ImageController {
     @Resource
     ImageService imageService;
+    @Resource
+    UserMapper userMapper;
     private static Integer UID = 0;
 
     /**
@@ -35,6 +40,11 @@ public class ImageController {
     @PostMapping("/addImage")
     public WebResponse<String> add(MultipartFile image, Integer uid) throws IOException {
         UID = uid;
+        String fileName = image.getOriginalFilename();
+        if (imageService.imageName(uid).contains(fileName)) {
+            String res = imageService.lrImage(fileName, uid);
+            return new WebResponse<>(ResultEnum.SUCCESS, res);
+        }
         String res = imageService.imageFtpAndSql(image, uid);
         return new WebResponse<>(ResultEnum.SUCCESS, res);
     }
@@ -53,11 +63,15 @@ public class ImageController {
      */
     @GetMapping("/getHRImage")
     public WebResponse<String> getHr(@RequestParam("url") String URL, @RequestParam("userName") String userName) {
+        String hrImage = imageService.hrImage(URL, userName);
+        if (hrImage != null) {
+            return new WebResponse<>(ResultEnum.SUCCESS, hrImage);
+        }
         System.out.println(URL);
-        String s = HttpClientDemo.get(URL, userName);
+        String s = HttpClientDemo.get(URL, NameUtil.ToPinyin(userName));
         System.out.println("高：" + s);
-        imageService.imageHRToSQL(s, UID);
-        return new WebResponse<>(ResultEnum.SUCCESS, s);
+        String url = imageService.imageHRToSQL(s, UID);
+        return new WebResponse<>(ResultEnum.SUCCESS, url);
     }
 
     /**
@@ -78,6 +92,7 @@ public class ImageController {
     @GetMapping("/getHistory")
     public WebResponse<List<HistoryDo1>> getHistory(@RequestParam("uid") Integer uid) {
         System.out.println();
+        String userName = userMapper.getUserById(uid).getUserName();
         List<HistoryDo> l = imageService.getHistory(uid);
         List<HistoryDo1> ll = new ArrayList<>();
         SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -85,8 +100,10 @@ public class ImageController {
             HistoryDo1 do1 = new HistoryDo1();
             do1.setId(list.getId());
             do1.setImage_name(list.getImage_name());
-            do1.setLr_image(list.getLr_image());
-            do1.setHr_image(list.getHr_image());
+            do1.setUserName(NameUtil.ToPinyin(userName));
+            do1.setLr_image(list.getImage_name());
+            String[] s = list.getHr_image().split("/");
+            do1.setHr_image(s[s.length - 1]);
             do1.setUser_id(list.getUser_id());
             do1.setStatus(list.getStatus());
             do1.setCreated(dateFormat2.format(list.getCreated()));

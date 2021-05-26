@@ -11,6 +11,7 @@ public class HistoryDo1 {
     Integer id;
     Integer user_id;
     String image_name;
+    String userName;
     String lr_image;
     String hr_image;
     Integer status;

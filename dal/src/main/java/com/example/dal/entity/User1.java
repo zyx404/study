@@ -15,6 +15,7 @@ public class User1 {
     String email;
     String newSecretOne;
     String newSecretTwo;
+    Boolean isCollect;
     String description;
     Integer status;
     Date created;
